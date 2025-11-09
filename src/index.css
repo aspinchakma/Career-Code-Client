@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@custom-variant dark (&:where(.dark, .dark *));
+html,
+body {
+  @apply transition-colors duration-300;
+}
+
+*,
+::before,
+::after {
+  @apply transition-colors duration-300;
+}
+
+/* IMPORTANT: text-color transition remove */
+*,
+::before,
+::after {
+  transition-property: background-color, border-color, fill, stroke, box-shadow;
+}
