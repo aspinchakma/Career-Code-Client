@@ -3,41 +3,62 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 import RegisterAnimation from "./../../assets/lotties/register.json";
 const Register = () => {
+  const { handleUserSignUp, setUser } = useContext(AuthContext);
+
   const handleRegister = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
+
+    // sign up using firebase
+    handleUserSignUp(email, password)
+      .then((userData) => {
+        setUser(userData.user);
+      })
+      .catch((err) => {
+        console.log(err.code);
+      });
   };
 
-  const { name, age } = useContext(AuthContext);
-  console.log(name, age);
-
   return (
-    <div className=" w-[95%] lg:w-[50%] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 my-10 lg:my-12">
-      <div className="lg:block hidden">
-        <Lottie animationData={RegisterAnimation} loop={true} />
-      </div>
-      <div>
-        <h2>Register Now!</h2>
-        <form onSubmit={handleRegister} className="fieldset">
-          <label className="label">Email</label>
-          <input
-            type="email"
-            className="input"
-            placeholder="Email"
-            name="email"
-          />
-          <label className="label">Password</label>
-          <input
-            type="password"
-            className="input"
-            placeholder="Password"
-            name="password"
-          />
+    <div className=" dark:bg-gray-800 dark:text-gray-100">
+      <div className=" w-[95%] lg:w-[50%] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 py-10 lg:py-12">
+        <div className="lg:block hidden">
+          <Lottie animationData={RegisterAnimation} loop={true} />
+        </div>
+        <div>
+          <h2 className="text-3xl font-medium mb-5">Register Now!</h2>
+          <div>
+            <button className="border-2 border-black w-full text-center inline-block py-2 rounded-sm font-medium cursor-pointer dark:border-white dark:bg-white dark:text-black">
+              Sign Up Using Google
+            </button>
+          </div>
+          <div className="divider mt-8">OR</div>
+          <form onSubmit={handleRegister} className="fieldset">
+            <label className="label text-black text-lg font-semibold mb-1 dark:text-gray-100">
+              Email
+            </label>
+            <input
+              type="email"
+              className="input dark:text-black"
+              placeholder="Email"
+              name="email"
+            />
+            <label className="label text-black text-lg font-semibold mb-1 mt-2 dark:text-gray-100">
+              Password
+            </label>
+            <input
+              type="password"
+              className="input dark:text-black"
+              placeholder="Password"
+              name="password"
+            />
 
-          <button className="btn btn-neutral mt-4">Register</button>
-        </form>
+            <button className="btn btn-neutral mt-4 dark:bg-white dark:text-black">
+              Register
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
