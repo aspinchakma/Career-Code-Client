@@ -3,7 +3,8 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 import RegisterAnimation from "./../../assets/lotties/register.json";
 const Register = () => {
-  const { handleUserSignUp, setUser } = useContext(AuthContext);
+  const { handleUserSignUp, setUser, handleSignInWithGoogle } =
+    useContext(AuthContext);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -20,6 +21,16 @@ const Register = () => {
       });
   };
 
+  const handleSignInUsingGooglePopUp = () => {
+    handleSignInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+      })
+      .catch((err) => {
+        console.log(err.code);
+      });
+  };
   return (
     <div className=" dark:bg-gray-800 dark:text-gray-100">
       <div className=" w-[95%] lg:w-[50%] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 py-10 lg:py-12">
@@ -29,7 +40,10 @@ const Register = () => {
         <div>
           <h2 className="text-3xl font-medium mb-5">Register Now!</h2>
           <div>
-            <button className="border-2 border-black w-full text-center inline-block py-2 rounded-sm font-medium cursor-pointer dark:border-white dark:bg-white dark:text-black">
+            <button
+              onClick={handleSignInUsingGooglePopUp}
+              className="border-2 border-black w-full text-center inline-block py-2 rounded-sm font-medium cursor-pointer dark:border-white dark:bg-white dark:text-black"
+            >
               Sign Up Using Google
             </button>
           </div>
