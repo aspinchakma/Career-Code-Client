@@ -4,6 +4,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "../../firebase/firebase.init";
@@ -49,11 +50,17 @@ const AuthProvider = ({ children }) => {
     // cleanup function
     return unSubscribed;
   }, []);
+
+  // signout
+  const userSignOut = () => {
+    return signOut(auth);
+  };
   const data = {
     userSignIn,
     handleSignInWithGoogle,
     handleUserSignUp,
     setUser,
+    userSignOut,
   };
   console.log(user);
   console.log(isLoading);
