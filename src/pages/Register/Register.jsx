@@ -1,4 +1,6 @@
 import Lottie from "lottie-react";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 import RegisterAnimation from "./../../assets/lotties/register.json";
 const Register = () => {
   const handleRegister = (e) => {
@@ -7,6 +9,9 @@ const Register = () => {
     const password = e.target.password.value;
     console.log(email, password);
   };
+
+  const { name, age } = useContext(AuthContext);
+  console.log(name, age);
 
   return (
     <div className=" w-[95%] lg:w-[50%] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 my-10 lg:my-12">
