@@ -48,7 +48,9 @@ const AuthProvider = ({ children }) => {
     });
 
     // cleanup function
-    return unSubscribed;
+    return () => {
+      unSubscribed();
+    };
   }, []);
 
   // signout
@@ -56,6 +58,7 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
   const data = {
+    user,
     userSignIn,
     handleSignInWithGoogle,
     handleUserSignUp,

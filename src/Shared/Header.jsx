@@ -4,7 +4,7 @@ import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import Theme from "../pages/Theme/Theme";
 
 const Header = () => {
-  const { userSignOut, setUser } = use(AuthContext);
+  const { userSignOut, setUser, user } = use(AuthContext);
   const links = (
     <>
       <li>
@@ -22,6 +22,8 @@ const Header = () => {
         console.log(err.code);
       });
   };
+
+  console.log(user);
   return (
     <div className="dark:bg-gray-900 dark:text-gray-100">
       <div className="drawer">
@@ -60,9 +62,14 @@ const Header = () => {
             </div>
 
             <div className="navbar-end gap-3">
-              <Link to={"/register"}>Register</Link>
-              <Link to={"/signin"}>Sign in</Link>
-              <button onClick={handleUserSignOut}>Sign Out</button>
+              {user ? (
+                <button onClick={handleUserSignOut}>Sign Out</button>
+              ) : (
+                <>
+                  <Link to={"/register"}>Register</Link>
+                  <Link to={"/signin"}>Sign in</Link>
+                </>
+              )}
               <Theme />
             </div>
           </div>
