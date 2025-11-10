@@ -1,5 +1,6 @@
 import Lottie from "lottie-react";
 import { useContext } from "react";
+import Swal from "sweetalert2";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 import RegisterAnimation from "./../../assets/lotties/register.json";
 const Register = () => {
@@ -8,6 +9,15 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
+
+    // showing loading
+    Swal.fire({
+      title: "Creating Account...",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
     const email = e.target.email.value;
     const password = e.target.password.value;
 
@@ -15,9 +25,16 @@ const Register = () => {
     handleUserSignUp(email, password)
       .then((userData) => {
         setUser(userData.user);
+        Swal.close();
       })
       .catch((err) => {
-        console.log(err.code);
+        Swal.close();
+
+        // showing error to the user
+        Swal.fire({
+          icon: "error",
+          text: `${err.code}`,
+        });
       });
   };
 
