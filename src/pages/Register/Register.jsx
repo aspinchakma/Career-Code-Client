@@ -54,7 +54,7 @@ const Register = () => {
             </label>
             <input
               type="email"
-              className="input dark:text-black"
+              className="input dark:text-black w-full"
               placeholder="Email"
               name="email"
             />
@@ -63,7 +63,7 @@ const Register = () => {
             </label>
             <input
               type="password"
-              className="input dark:text-black"
+              className="input dark:text-black w-full"
               placeholder="Password"
               name="password"
             />
