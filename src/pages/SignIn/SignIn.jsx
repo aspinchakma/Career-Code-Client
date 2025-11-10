@@ -1,24 +1,39 @@
 import Lottie from "lottie-react";
 import { useContext } from "react";
+import Swal from "sweetalert2";
 import SignInAnimation from "../../assets/lotties/login.json";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 
 const SignIn = () => {
-  const { handleUserSignUp, setUser, handleSignInWithGoogle } =
+  const { setUser, handleSignInWithGoogle, userSignIn } =
     useContext(AuthContext);
 
   const handleRegister = (e) => {
     e.preventDefault();
+
+    // showing loading sweetalert for creating account
+    Swal.fire({
+      title: "Login...",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
     const email = e.target.email.value;
     const password = e.target.password.value;
 
     // sign up using firebase
-    handleUserSignUp(email, password)
+    userSignIn(email, password)
       .then((userData) => {
         setUser(userData.user);
+        Swal.close();
       })
       .catch((err) => {
-        console.log(err.code);
+        Swal.close();
+        Swal.fire({
+          icon: "error",
+          text: `${err.code}`,
+        });
       });
   };
 
