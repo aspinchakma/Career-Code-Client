@@ -63,7 +63,9 @@ const Header = () => {
 
             <div className="navbar-end gap-3">
               {user ? (
-                <button onClick={handleUserSignOut}>Sign Out</button>
+                <button className="cursor-pointer" onClick={handleUserSignOut}>
+                  Sign Out
+                </button>
               ) : (
                 <>
                   <Link to={"/register"}>Register</Link>
